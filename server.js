@@ -69,15 +69,12 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
     date
   } = req.body
 
-  console.log(date)
 
   if(!date){
     date = new Date()
   } else {
     date = new Date(date)
   }
-
-  console.log(date);
  
   const user = await User.findById(id, (err, data) => {
     if (err){
@@ -117,7 +114,7 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
 app.get('/api/users/:_id/logs', (req, res) => {
   const id = req.params._id
   const {from, to, limit} = req.query
-  console.log(from, to, limit);
+  
   User.findById(id, (err, data) => {
     if (!data){
       res.send("error")
@@ -137,7 +134,7 @@ app.get('/api/users/:_id/logs', (req, res) => {
       if(limit){
        logs = logs.slice(0, +limit)       
       }
-
+      
       let count = data.logs.length
       let obj = {
         _id: _id,
@@ -153,12 +150,7 @@ app.get('/api/users/:_id/logs', (req, res) => {
     _id: 0
   })
 })
-    
  
-
-
-
-
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
